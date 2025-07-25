@@ -15,7 +15,7 @@ import {
 	FormLabel,
 	FormMessage
 } from '@/components/ui/form'
-import { Label } from '@/components/ui/label'
+import CurrencySelect from '@/components/form/currency-select'
 
 const formSchema = z.object({
 	amount: z.number().min(0, 'Amount must be a positive number')
@@ -59,12 +59,24 @@ export default function Home() {
 								</FormItem>
 							)}
 						/>
-						<div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-							<Label>From</Label>
-							<Button type="button" variant="outline">
+						<div className="grid items-end gap-4 md:grid-cols-[1fr_auto_1fr]">
+							<FormItem>
+								<FormLabel>From</FormLabel>
+								<FormControl>
+									<CurrencySelect />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+							<Button type="button" variant="outline" className="mx-auto w-min">
 								<IconTransfer /> Swap
 							</Button>
-							<Label>To</Label>
+							<FormItem>
+								<FormLabel>To</FormLabel>
+								<FormControl>
+									<CurrencySelect />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
 						</div>
 						<Button type="submit" className="w-full">
 							Convert
