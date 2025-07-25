@@ -117,8 +117,16 @@
 		@apply border-border outline-ring/50;
 	}
 
-
 	body {
 		@apply bg-background text-foreground flex min-h-screen flex-col;
 	}
+
+	button:not([disabled]),
+	[role='button']:not([disabled]) {
+		cursor: pointer;
+	}
+}
+
+.form-field {
+	@apply flex flex-col gap-1;
 }
