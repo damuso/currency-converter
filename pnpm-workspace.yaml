@@ -1,0 +1,7 @@
+packages:
+  - "apps/*"
+
+catalog:
+  eslint: ^9
+  typescript: ^5
+  "@types/node": ^20

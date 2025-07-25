@@ -1,0 +1,36 @@
+{
+	"name": "currency-converter",
+	"private": true,
+	"type": "module",
+	"version": "1.0.0",
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
+	"workspaces": [
+		"apps/*"
+	],
+	"scripts": {
+		"prepare": "husky",
+		"lint": "eslint . --fix",
+		"lint:check": "eslint .",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"type-check": "tsc --noEmit",
+		"web:dev": "pnpm --filter @apps/web dev"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.1",
+		"@tsconfig/recommended": "^1.0.10",
+		"@typescript-eslint/eslint-plugin": "^8.38.0",
+		"@typescript-eslint/parser": "^8.38.0",
+		"eslint": "catalog:",
+		"eslint-config-prettier": "^10.1.8",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.1.2",
+		"prettier": "3.6.2",
+		"prettier-plugin-tailwindcss": "^0.6.14",
+		"typescript": "catalog:"
+	}
+}
