@@ -1,12 +1,12 @@
 export default function Home() {
 	return (
-		<div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
-			<main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
-				<h1>Currency converter</h1>
-			</main>
-			<footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
-				<p>Created by Damian Paranic</p>
-			</footer>
-		</div>
+		<>
+			<div className="bg-card text-card-foreground rounded-lg border p-8 shadow-sm">
+				<h2 className="mb-4 text-2xl font-semibold">Currency Converter</h2>
+				<p className="text-muted-foreground leading-relaxed">
+					Simple currency converter application
+				</p>
+			</div>
+		</>
 	)
 }
