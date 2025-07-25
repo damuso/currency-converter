@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import ThemeSwitcher from '@/components/theme/ThemeSwitcher'
+import ThemeSwitcher from '@/components/theme/theme-switcher'
 
 const LayoutHeader = () => {
 	return (
