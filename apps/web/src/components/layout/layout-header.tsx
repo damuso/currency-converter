@@ -10,8 +10,8 @@ const LayoutHeader = () => {
 					<Image
 						src="/logo.svg"
 						alt="Currency Converter Logo"
-						width={32}
-						height={32}
+						width={40}
+						height={40}
 					/>
 					<span className="text-lg font-semibold text-white">
 						Currency converter
