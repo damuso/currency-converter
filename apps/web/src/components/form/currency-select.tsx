@@ -63,7 +63,12 @@ const CurrencySelect = ({
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
-				<Command>
+				<Command
+					filter={(value, search) => {
+						if (new RegExp(search, 'i').test(value)) return 1
+						return 0
+					}}
+				>
 					<CommandInput placeholder="Search currency..." className="h-9" />
 					<CommandList>
 						<CommandEmpty>No currency found.</CommandEmpty>
