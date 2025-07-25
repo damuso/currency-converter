@@ -29,9 +29,18 @@ export interface Currency {
 	symbol?: string
 }
 
-const CurrencySelect = () => {
+interface CurrencySelectProps {
+	value?: Currency | null
+	onChange?: (value: Currency | null) => void
+	disabledValues?: Currency[]
+}
+
+const CurrencySelect = ({
+	value,
+	onChange,
+	disabledValues = []
+}: CurrencySelectProps) => {
 	const [open, setOpen] = React.useState(false)
-	const [value, setValue] = React.useState<Currency | null>(null)
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -63,8 +72,12 @@ const CurrencySelect = () => {
 								<CommandItem
 									key={currency.code}
 									value={`${currency.code} ${currency.name}`}
+									disabled={disabledValues.some(
+										(disabledCurrency) =>
+											disabledCurrency.code === currency.code
+									)}
 									onSelect={() => {
-										setValue(currency)
+										onChange?.(currency)
 										setOpen(false)
 									}}
 								>

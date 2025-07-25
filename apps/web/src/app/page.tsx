@@ -15,17 +15,39 @@ import {
 	FormLabel,
 	FormMessage
 } from '@/components/ui/form'
-import CurrencySelect from '@/components/form/currency-select'
+import CurrencySelect, { Currency } from '@/components/form/currency-select'
 
 const formSchema = z.object({
-	amount: z.number().min(0, 'Amount must be a positive number')
+	amount: z.number().min(0, 'Amount must be a positive number'),
+	baseCurrency: z
+		.object({
+			code: z.string(),
+			decimals: z.number(),
+			name: z.string(),
+			number: z.string(),
+			symbol: z.string().optional()
+		})
+		.nullable()
+		.refine((value) => value !== null, 'Base currency is required'),
+	targetCurrency: z
+		.object({
+			code: z.string(),
+			decimals: z.number(),
+			name: z.string(),
+			number: z.string(),
+			symbol: z.string().optional()
+		})
+		.nullable()
+		.refine((value) => value !== null, 'Target currency is required')
 })
 
 export default function Home() {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			amount: 1
+			amount: 1,
+			baseCurrency: null,
+			targetCurrency: null
 		}
 	})
 
@@ -60,23 +82,66 @@ export default function Home() {
 							)}
 						/>
 						<div className="grid items-end gap-4 md:grid-cols-[1fr_auto_1fr]">
-							<FormItem>
-								<FormLabel>From</FormLabel>
-								<FormControl>
-									<CurrencySelect />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-							<Button type="button" variant="outline" className="mx-auto w-min">
+							<FormField
+								control={form.control}
+								name="baseCurrency"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>From</FormLabel>
+										<FormControl>
+											<CurrencySelect
+												value={field.value}
+												onChange={field.onChange}
+												disabledValues={
+													form.watch('targetCurrency') !== null
+														? ([form.watch('targetCurrency')] as Currency[])
+														: []
+												}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<Button
+								type="button"
+								variant="outline"
+								className="mx-auto w-min"
+								disabled={
+									!form.watch('baseCurrency') || !form.watch('targetCurrency')
+								}
+								onClick={() => {
+									const baseCurrency = form.watch('baseCurrency')
+									const targetCurrency = form.watch('targetCurrency')
+									if (baseCurrency && targetCurrency) {
+										form.setValue('baseCurrency', targetCurrency)
+										form.setValue('targetCurrency', baseCurrency)
+									}
+								}}
+							>
 								<IconTransfer /> Swap
 							</Button>
-							<FormItem>
-								<FormLabel>To</FormLabel>
-								<FormControl>
-									<CurrencySelect />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
+							<FormField
+								control={form.control}
+								name="targetCurrency"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>To</FormLabel>
+										<FormControl>
+											<CurrencySelect
+												value={field.value}
+												onChange={field.onChange}
+												disabledValues={
+													form.watch('baseCurrency') !== null
+														? ([form.watch('baseCurrency')] as Currency[])
+														: []
+												}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 						</div>
 						<Button type="submit" className="w-full">
 							Convert
