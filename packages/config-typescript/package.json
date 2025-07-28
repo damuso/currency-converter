@@ -1,0 +1,7 @@
+{
+	"name": "@currency_converter/config-typescript",
+	"private": true,
+	"files": [
+		"*.json"
+	]
+}

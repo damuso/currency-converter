@@ -18,8 +18,8 @@ import {
 	PopoverContent,
 	PopoverTrigger
 } from '@/components/ui/popover'
-import { currencies } from 'country-data-list'
-import { getCountryCodeByCurrency } from '@/lib/helpers/currencies'
+import { CURRENCY_LIST } from '@currency_converter/shared/constants'
+import { getCountryCodeByCurrency } from '@currency_converter/shared/utils'
 
 export interface Currency {
 	code: string
@@ -73,7 +73,7 @@ const CurrencySelect = ({
 					<CommandList>
 						<CommandEmpty>No currency found.</CommandEmpty>
 						<CommandGroup>
-							{currencies.all.map((currency) => (
+							{CURRENCY_LIST.map((currency) => (
 								<CommandItem
 									key={currency.code}
 									value={`${currency.code} ${currency.name}`}

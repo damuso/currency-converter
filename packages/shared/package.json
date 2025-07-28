@@ -1,0 +1,28 @@
+{
+	"name": "@currency_converter/shared",
+	"private": true,
+	"exports": {
+		"./*": {
+			"types": "./dist/*/index.d.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsup",
+		"watch": "tsup --watch",
+		"lint": "eslint src/",
+		"lint:fix": "eslint src/ --fix",
+		"typecheck": "tsc --noEmit"
+	},
+	"devDependencies": {
+		"@currency_converter/config-eslint": "workspace:*",
+		"@currency_converter/config-typescript": "workspace:*",
+		"@types/node": "^24.1.0",
+		"eslint": "^9.32.0",
+		"tsup": "^8.5.0",
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"country-data-list": "^1.4.1",
+		"zod": "^4.0.10"
+	}
+}
