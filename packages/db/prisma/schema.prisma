@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Currency {
+  code          String  @id @db.VarChar(3)
+  name          String  @db.VarChar(100)
+  symbol        String? @db.VarChar(10)
+  decimalPlaces Int     @default(2) @map("decimal_places")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  baseRates   ExchangeRate[] @relation("BaseCurrency")
+  targetRates ExchangeRate[] @relation("TargetCurrency")
+
+  conversionsFrom Conversion[] @relation("BaseCurrency")
+  conversionsTo   Conversion[] @relation("TargetCurrency")
+
+  @@map("currencies")
+}
+
+model ExchangeRate {
+  id             String   @id @default(cuid())
+  baseCurrency   String   @map("base_currency") @db.VarChar(3)
+  targetCurrency String   @map("target_currency") @db.VarChar(3)
+  rate           Decimal  @db.Decimal(20, 10)
+  rateDate       DateTime @map("rate_date") @db.Date
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  baseCurrencyRef   Currency @relation("BaseCurrency", fields: [baseCurrency], references: [code])
+  targetCurrencyRef Currency @relation("TargetCurrency", fields: [targetCurrency], references: [code])
+
+  @@unique([baseCurrency, targetCurrency, rateDate])
+
+  @@index([baseCurrency, targetCurrency])
+  @@index([rateDate])
+  @@index([baseCurrency, targetCurrency, rateDate])
+
+  @@map("exchange_rates")
+}
+
+model Conversion {
+  id               String   @id @default(cuid())
+  baseCurrency     String   @map("base_currency") @db.VarChar(3)
+  targetCurrency   String   @map("target_currency") @db.VarChar(3)
+  fromAmount       Decimal  @map("from_amount") @db.Decimal(20, 10)
+  toAmount         Decimal  @map("to_amount") @db.Decimal(20, 10)
+  exchangeRate     Decimal  @map("exchange_rate") @db.Decimal(20, 10)
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  baseCurrencyRef Currency @relation("BaseCurrency", fields: [baseCurrency], references: [code])
+  targetCurrencyRef   Currency @relation("TargetCurrency", fields: [targetCurrency], references: [code])
+
+  @@index([baseCurrency, targetCurrency])
+
+  @@map("conversions")
+}

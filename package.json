@@ -20,7 +20,9 @@
 		"type-check": "turbo run type-check",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
-		"prepare": "husky"
+		"prepare": "husky",
+		"db:deploy": "turbo run db:deploy --",
+		"db:seed": "turbo run db:seed"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.8.1",

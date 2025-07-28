@@ -1,0 +1,23 @@
+{
+	"name": "@currency_converter/db",
+	"main": "index.ts",
+	"scripts": {
+		"db:generate": "prisma generate --no-engine",
+		"db:migrate": "prisma migrate dev",
+		"db:deploy": "prisma migrate deploy",
+		"db:studio": "prisma studio",
+		"db:seed": "tsx prisma/seed.ts"
+	},
+	"devDependencies": {
+		"@currency_converter/config-eslint": "workspace:*",
+		"@currency_converter/config-typescript": "workspace:*",
+		"@types/node": "^24.1.0",
+		"prisma": "^6.12.0",
+		"tsx": "^4.20.3",
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"@prisma/client": "6.12.0",
+		"@prisma/extension-accelerate": "^2.0.2"
+	}
+}
