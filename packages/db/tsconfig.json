@@ -1,7 +1,9 @@
 {
+	"extends": "@currency_converter/config-typescript/base.json",
 	"compilerOptions": {
 		"target": "es2016",
-		"module": "commonjs",
+		"module": "Node16",
+		"moduleResolution": "node16",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,

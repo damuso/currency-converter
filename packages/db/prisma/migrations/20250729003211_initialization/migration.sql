@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE "currencies" (
     "code" VARCHAR(3) NOT NULL,
-    "name" VARCHAR(100) NOT NULL,
-    "symbol" VARCHAR(10),
+    "name" VARCHAR(150) NOT NULL,
+    "symbol" VARCHAR(150),
     "decimal_places" INTEGER NOT NULL DEFAULT 2,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,

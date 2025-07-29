@@ -2,7 +2,7 @@
 	"name": "@currency_converter/db",
 	"main": "index.ts",
 	"scripts": {
-		"db:generate": "prisma generate --no-engine",
+		"db:generate": "prisma generate",
 		"db:migrate": "prisma migrate dev",
 		"db:deploy": "prisma migrate deploy",
 		"db:studio": "prisma studio",
@@ -17,6 +17,7 @@
 		"typescript": "^5.8.3"
 	},
 	"dependencies": {
+		"@currency_converter/shared": "workspace:*",
 		"@prisma/client": "6.12.0",
 		"@prisma/extension-accelerate": "^2.0.2"
 	}

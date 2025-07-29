@@ -10,8 +10,8 @@ datasource db {
 
 model Currency {
   code          String  @id @db.VarChar(3)
-  name          String  @db.VarChar(100)
-  symbol        String? @db.VarChar(10)
+  name          String  @db.VarChar(150)
+  symbol        String? @db.VarChar(150)
   decimalPlaces Int     @default(2) @map("decimal_places")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
