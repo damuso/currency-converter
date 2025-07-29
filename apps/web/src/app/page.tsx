@@ -1,6 +1,5 @@
 'use client'
 
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { IconTransfer } from '@tabler/icons-react'
@@ -16,6 +15,7 @@ import {
 	FormMessage
 } from '@/components/ui/form'
 import CurrencySelect, { Currency } from '@/components/form/currency-select'
+import { NumberInput } from '@/components/form/number-input.tsx'
 
 const formSchema = z.object({
 	amount: z.number().min(0, 'Amount must be a positive number'),
@@ -45,10 +45,11 @@ export default function Home() {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			amount: 1,
+			amount: 1.0,
 			baseCurrency: null,
 			targetCurrency: null
-		}
+		},
+		mode: 'onSubmit'
 	})
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
@@ -67,14 +68,13 @@ export default function Home() {
 								<FormItem>
 									<FormLabel>Amount to convert</FormLabel>
 									<FormControl>
-										<Input
-											type="number"
+										<NumberInput
 											placeholder="Enter amount"
+											min={0}
+											stepper={0.01}
+											decimalScale={4}
+											thousandSeparator={' '}
 											{...field}
-											onChange={(e) => {
-												const value = e.target.value
-												field.onChange(value ? parseFloat(value) : 0)
-											}}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -90,13 +90,12 @@ export default function Home() {
 										<FormLabel>From</FormLabel>
 										<FormControl>
 											<CurrencySelect
-												value={field.value}
-												onChange={field.onChange}
 												disabledValues={
 													form.watch('targetCurrency') !== null
 														? ([form.watch('targetCurrency')] as Currency[])
 														: []
 												}
+												{...field}
 											/>
 										</FormControl>
 										<FormMessage />
@@ -129,13 +128,12 @@ export default function Home() {
 										<FormLabel>To</FormLabel>
 										<FormControl>
 											<CurrencySelect
-												value={field.value}
-												onChange={field.onChange}
 												disabledValues={
 													form.watch('baseCurrency') !== null
 														? ([form.watch('baseCurrency')] as Currency[])
 														: []
 												}
+												{...field}
 											/>
 										</FormControl>
 										<FormMessage />
