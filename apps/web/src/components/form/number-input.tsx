@@ -1,10 +1,8 @@
-'use client'
-
 import { ChevronDown, ChevronUp } from 'lucide-react'
-import { forwardRef, useCallback, useEffect, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
 import { NumericFormat, NumericFormatProps } from 'react-number-format'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input.tsx'
+import { Button } from '@/components/ui/button.tsx'
 
 export interface NumberInputProps
 	extends Omit<NumericFormatProps, 'value' | 'onValueChange'> {
@@ -41,6 +39,10 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 		},
 		ref
 	) => {
+		const internalRef = useRef<HTMLInputElement>(null) // Create an internal ref
+
+		const combinedRef = ref || internalRef // Use provided ref or internal ref
+
 		const [value, setValue] = useState<number | undefined>(
 			controlledValue ?? defaultValue
 		)
@@ -65,7 +67,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 			const handleKeyDown = (e: KeyboardEvent) => {
 				if (
 					document.activeElement ===
-					(ref as React.RefObject<HTMLInputElement>).current
+					(combinedRef as React.RefObject<HTMLInputElement>).current
 				) {
 					if (e.key === 'ArrowUp') {
 						handleIncrement()
@@ -80,7 +82,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 			return () => {
 				window.removeEventListener('keydown', handleKeyDown)
 			}
-		}, [handleIncrement, handleDecrement, ref])
+		}, [handleIncrement, handleDecrement, combinedRef])
 
 		useEffect(() => {
 			if (controlledValue !== undefined) {
@@ -132,7 +134,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 					customInput={Input}
 					placeholder={placeholder}
 					className="relative rounded-r-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-					getInputRef={ref}
+					getInputRef={combinedRef} // Use combined ref
 					{...props}
 				/>
 
@@ -143,6 +145,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 						variant="outline"
 						onClick={handleIncrement}
 						disabled={value === max}
+						type="button"
 					>
 						<ChevronUp size={15} />
 					</Button>
@@ -152,6 +155,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 						variant="outline"
 						onClick={handleDecrement}
 						disabled={value === min}
+						type="button"
 					>
 						<ChevronDown size={15} />
 					</Button>

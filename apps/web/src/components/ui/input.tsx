@@ -2,14 +2,7 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-interface InputProps extends React.ComponentProps<'input'> {
-	label?: string
-}
-
-function Input({ className, type, label, ...props }: InputProps) {
-	if (label) {
-	}
-
+function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
 	return (
 		<input
 			type={type}

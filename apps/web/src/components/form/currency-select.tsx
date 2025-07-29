@@ -20,14 +20,7 @@ import {
 } from '@/components/ui/popover'
 import { CURRENCY_LIST } from '@currency_converter/shared/constants'
 import { getCountryCodeByCurrency } from '@currency_converter/shared/utils'
-
-export interface Currency {
-	code: string
-	decimals: number
-	name: string
-	number: string
-	symbol?: string
-}
+import { Currency } from '@currency_converter/shared/types'
 
 interface CurrencySelectProps {
 	value?: Currency | null
