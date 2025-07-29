@@ -70,3 +70,7 @@ Use setup script or follow manual steps below:
 8. Seed the database with exchange rates by visiting `http://localhost:5000/trpc/exchangeRate.updateExchangeRates`
    - this is supposed to run periodically every day using a cron job (future improvement ⏳)
 9. Visit the web application at `http://localhost:3000`
+
+
+### Showcase
+![Currency Converter App](docs/demo.png)
