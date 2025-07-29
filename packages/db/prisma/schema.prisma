@@ -26,17 +26,16 @@ model Currency {
 }
 
 model ExchangeRate {
-  id             String   @id @default(cuid())
   baseCurrency   String   @map("base_currency") @db.VarChar(3)
   targetCurrency String   @map("target_currency") @db.VarChar(3)
-  rate           Decimal  @db.Decimal(20, 10)
   rateDate       DateTime @map("rate_date") @db.Date
+  rate           Decimal  @db.Decimal(20, 10)
   createdAt      DateTime @default(now()) @map("created_at")
 
   baseCurrencyRef   Currency @relation("BaseCurrency", fields: [baseCurrency], references: [code])
   targetCurrencyRef Currency @relation("TargetCurrency", fields: [targetCurrency], references: [code])
 
-  @@unique([baseCurrency, targetCurrency, rateDate])
+  @@id([baseCurrency, targetCurrency, rateDate])
 
   @@index([baseCurrency, targetCurrency])
   @@index([rateDate])

@@ -287,6 +287,9 @@ importers:
       '@currency_converter/db':
         specifier: workspace:*
         version: link:../db
+      '@currency_converter/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@trpc/server':
         specifier: ^11.4.3
         version: 11.4.3(typescript@5.8.3)

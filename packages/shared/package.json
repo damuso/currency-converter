@@ -21,6 +21,11 @@
 			"types": "./dist/utils/index.d.ts",
 			"import": "./dist/utils/index.mjs",
 			"require": "./dist/utils/index.js"
+		},
+		"./validations": {
+			"types": "./dist/validations/index.d.ts",
+			"import": "./dist/validations/index.mjs",
+			"require": "./dist/validations/index.js"
 		}
 	},
 	"scripts": {

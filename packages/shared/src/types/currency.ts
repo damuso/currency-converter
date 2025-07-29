@@ -5,3 +5,5 @@ export interface Currency {
 	number: string
 	symbol?: string
 }
+
+export interface ConversionResult {}
