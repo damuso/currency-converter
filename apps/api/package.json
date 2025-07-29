@@ -1,0 +1,24 @@
+{
+	"name": "@currency_converter/api",
+	"private": true,
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsx watch src/index.ts",
+		"lint": "eslint --cache --ext \".js,.ts,.tsx\" src/index.ts",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {
+		"@currency_converter/trpc": "workspace:*",
+		"@fastify/cors": "^11.0.1",
+		"@trpc/server": "^11.4.3",
+		"fastify": "^5.4.0"
+	},
+	"devDependencies": {
+		"@currency_converter/config-eslint": "workspace:*",
+		"@currency_converter/config-typescript": "workspace:*",
+		"@types/node": "^24.1.0",
+		"eslint": "^9",
+		"tsx": "^4.20.3",
+		"typescript": "^5.8.3"
+	}
+}

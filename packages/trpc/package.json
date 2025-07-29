@@ -2,13 +2,20 @@
 	"name": "@currency_converter/trpc",
 	"main": "index.js",
 	"exports": {
-		".": "./src/trpc.ts",
-		"./context": "./src/context.ts",
-		"./routes": "./src/routers/index.ts"
+		".": "./src/index.ts"
 	},
+	"types": "./src/index.ts",
 	"dependencies": {
 		"@currency_converter/db": "workspace:*",
 		"@trpc/server": "^11.4.3",
-		"superjson": "^2.2.2"
+		"superjson": "^2.2.2",
+		"zod": "^4.0.13"
+	},
+	"devDependencies": {
+		"@currency_converter/config-eslint": "workspace:*",
+		"@currency_converter/config-typescript": "workspace:*",
+		"@types/node": "^24.1.0",
+		"eslint": "^9",
+		"typescript": "^5.8.3"
 	}
 }

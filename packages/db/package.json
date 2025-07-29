@@ -1,6 +1,9 @@
 {
 	"name": "@currency_converter/db",
 	"main": "index.ts",
+	"exports": {
+		".": "./index.ts"
+	},
 	"scripts": {
 		"db:generate": "prisma generate",
 		"db:migrate": "prisma migrate dev",
@@ -12,6 +15,7 @@
 		"@currency_converter/config-eslint": "workspace:*",
 		"@currency_converter/config-typescript": "workspace:*",
 		"@types/node": "^24.1.0",
+		"eslint": "^9",
 		"prisma": "^6.12.0",
 		"tsx": "^4.20.3",
 		"typescript": "^5.8.3"
