@@ -10,7 +10,7 @@ const server = fastify({
 	maxParamLength: 5000
 })
 server.register(cors, {
-	origin: '*', // TODO: Set this from an environment variable in production
+	origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
 	methods: ['GET', 'POST']
 })
 
@@ -26,7 +26,13 @@ server.register(fastifyTRPCPlugin, {
 })
 ;(async () => {
 	try {
-		await server.listen({ port: 5000 })
+		await server.listen({
+			port: parseInt(process.env.API_PORT || '5000'),
+			host: process.env.API_HOST || 'localhost'
+		})
+		console.log(
+			`Server is running at http://${process.env.API_HOST || 'localhost'}:${process.env.API_PORT || '5000'}`
+		)
 	} catch (err) {
 		server.log.error(err)
 		process.exit(1)
