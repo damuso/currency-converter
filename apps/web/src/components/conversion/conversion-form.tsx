@@ -17,7 +17,7 @@ import {
 import CurrencySelect from '@/components/form/currency-select'
 import { NumberInput } from '@/components/form/number-input.tsx'
 import { useTRPC } from '@/context/QueryProvider.tsx'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ConversionResult from '@/components/conversion/conversion-result.tsx'
 import {
 	Currency,
@@ -27,8 +27,16 @@ import { useEffect } from 'react'
 
 export default function ConversionForm() {
 	const trpc = useTRPC()
+	const queryClient = useQueryClient()
 	const { data, isPending, error, mutate, reset } = useMutation(
-		trpc.exchangeRate.convertCurrency.mutationOptions()
+		trpc.exchangeRate.convertCurrency.mutationOptions({
+			onSuccess: async () => {
+				console.log('Conversion successful, invalidating queries')
+				await queryClient.invalidateQueries({
+					queryKey: trpc.statistics.getAll.queryKey()
+				})
+			}
+		})
 	)
 	const form = useForm<z.infer<typeof currencyConversionFormSchema>>({
 		resolver: zodResolver(currencyConversionFormSchema),
@@ -43,7 +51,6 @@ export default function ConversionForm() {
 	const onSubmit = async (
 		values: z.infer<typeof currencyConversionFormSchema>
 	) => {
-		console.log('Form submitted with values:', values)
 		if (!values.baseCurrency?.code || !values.targetCurrency?.code) {
 			return
 		}
@@ -63,7 +70,7 @@ export default function ConversionForm() {
 	])
 
 	return (
-		<div className="bg-card text-card-foreground rounded-lg border p-8 shadow-sm">
+		<div className="bg-card text-card-foreground flex min-h-[550px] flex-col rounded-lg border p-8 shadow-sm md:min-h-[400px]">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 					<FormField
@@ -153,13 +160,15 @@ export default function ConversionForm() {
 				</form>
 			</Form>
 			<Separator className="mb-2 mt-4" />
-			<ConversionResult
-				isLoading={isPending}
-				baseCurrency={form.watch('baseCurrency')}
-				targetCurrency={form.watch('targetCurrency')}
-				conversionResult={data ?? null}
-				error={error?.data?.zodError}
-			/>
+			<div className="grid flex-1 place-content-center">
+				<ConversionResult
+					isLoading={isPending}
+					baseCurrency={form.watch('baseCurrency')}
+					targetCurrency={form.watch('targetCurrency')}
+					conversionResult={data ?? null}
+					error={error?.data?.zodError}
+				/>
+			</div>
 		</div>
 	)
 }
