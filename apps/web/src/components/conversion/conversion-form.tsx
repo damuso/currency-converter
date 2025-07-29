@@ -30,12 +30,10 @@ export default function ConversionForm() {
 	const queryClient = useQueryClient()
 	const { data, isPending, error, mutate, reset } = useMutation(
 		trpc.exchangeRate.convertCurrency.mutationOptions({
-			onSuccess: async () => {
-				console.log('Conversion successful, invalidating queries')
-				await queryClient.invalidateQueries({
+			onSuccess: () =>
+				queryClient.invalidateQueries({
 					queryKey: trpc.statistics.getAll.queryKey()
 				})
-			}
 		})
 	)
 	const form = useForm<z.infer<typeof currencyConversionFormSchema>>({
