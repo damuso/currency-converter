@@ -1,0 +1,14 @@
+{
+	"name": "@currency_converter/trpc",
+	"main": "index.js",
+	"exports": {
+		".": "./src/trpc.ts",
+		"./context": "./src/context.ts",
+		"./routes": "./src/routers/index.ts"
+	},
+	"dependencies": {
+		"@currency_converter/db": "workspace:*",
+		"@trpc/server": "^11.4.3",
+		"superjson": "^2.2.2"
+	}
+}
