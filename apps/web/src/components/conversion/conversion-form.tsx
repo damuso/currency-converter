@@ -164,7 +164,7 @@ export default function ConversionForm() {
 					baseCurrency={form.watch('baseCurrency')}
 					targetCurrency={form.watch('targetCurrency')}
 					conversionResult={data ?? null}
-					error={error?.data?.zodError}
+					error={error?.message}
 				/>
 			</div>
 		</div>

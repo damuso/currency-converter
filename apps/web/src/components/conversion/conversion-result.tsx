@@ -1,13 +1,13 @@
 import React from 'react'
 import { Currency } from '@currency_converter/shared/types'
-import { z, ZodFlattenedError } from 'zod'
+import { z } from 'zod'
 import { currencyConversionOutputSchema } from '@currency_converter/shared'
 import { Skeleton } from '@/components/ui/skeleton.tsx'
 import { Badge } from '@/components/ui/badge.tsx'
 
 interface ConversionResultProps {
 	isLoading: boolean
-	error: ZodFlattenedError<unknown, string> | null | undefined
+	error: string | undefined
 	baseCurrency: Currency | null
 	targetCurrency: Currency | null
 	conversionResult: z.infer<typeof currencyConversionOutputSchema> | null
@@ -20,10 +20,6 @@ const ConversionResult = ({
 	targetCurrency,
 	conversionResult
 }: ConversionResultProps) => {
-	if (!baseCurrency || !targetCurrency || !conversionResult) {
-		return null
-	}
-
 	if (isLoading) {
 		return (
 			<div className="my-4">
@@ -33,11 +29,11 @@ const ConversionResult = ({
 	}
 
 	if (error) {
-		return (
-			<div className="my-4 text-red-500">
-				<pre>{JSON.stringify(error, null, 2)}</pre>
-			</div>
-		)
+		return <p className="text-red-500">Failed to convert: {error}</p>
+	}
+
+	if (!baseCurrency || !targetCurrency || !conversionResult) {
+		return null
 	}
 
 	return (
@@ -47,8 +43,9 @@ const ConversionResult = ({
 				{conversionResult.convertedAmount.toFixed(2)} {targetCurrency.code}
 			</h2>
 			<Badge variant="secondary">
-				Rate: 1.00 {baseCurrency.code} ={' '}
-				{conversionResult.exchangeRate.toFixed(2)} {targetCurrency.code}
+				1.00 {baseCurrency.code} = {conversionResult.exchangeRate.toFixed(2)}{' '}
+				{targetCurrency.code} (
+				{new Date(conversionResult.rateDate).toLocaleDateString()})
 			</Badge>
 		</div>
 	)
