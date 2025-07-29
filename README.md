@@ -40,6 +40,13 @@ Created by **Damián Paranič**
 - [Docker](https://www.docker.com)
 
 ### Setup
+Use setup script or follow manual steps below:
+#### Script
+```bash
+./setup.sh
+```
+#### Manual Steps
+
 1. Clone and checkout the repository
 2. Create `.env` file in the root directory based on template `.env.example`
 3. Start the PostgreSQL database using Docker
@@ -63,11 +70,3 @@ Created by **Damián Paranič**
 8. Seed the database with exchange rates by visiting `http://localhost:5000/trpc/exchangeRate.updateExchangeRates`
    - this is supposed to run periodically every day using a cron job (future improvement ⏳)
 9. Visit the web application at `http://localhost:3000`
-
---- 
-
-Alternatively you can run whole setup using the provided script:
-```bash
-./setup.sh
-```
-
