@@ -43,7 +43,7 @@ const ConversionResult = ({
 				{conversionResult.convertedAmount.toFixed(2)} {targetCurrency.code}
 			</h2>
 			<Badge variant="secondary">
-				1.00 {baseCurrency.code} = {conversionResult.exchangeRate.toFixed(2)}{' '}
+				1.00 {baseCurrency.code} = {conversionResult.exchangeRate.toFixed(4)}{' '}
 				{targetCurrency.code} (
 				{new Date(conversionResult.rateDate).toLocaleDateString()})
 			</Badge>
