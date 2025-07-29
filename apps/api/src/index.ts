@@ -3,18 +3,23 @@ import {
 	FastifyTRPCPluginOptions
 } from '@trpc/server/adapters/fastify'
 import fastify from 'fastify'
+import cors from '@fastify/cors'
 import { AppRouter, appRouter, createContext } from '@currency_converter/trpc'
 
 const server = fastify({
 	maxParamLength: 5000
 })
+server.register(cors, {
+	origin: '*', // TODO: Set this from an environment variable in production
+	methods: ['GET', 'POST']
+})
+
 server.register(fastifyTRPCPlugin, {
 	prefix: '/trpc',
 	trpcOptions: {
 		router: appRouter,
 		createContext,
 		onError({ path, error }) {
-			// report to error monitoring
 			console.error(`Error in tRPC handler on path '${path}':`, error)
 		}
 	} satisfies FastifyTRPCPluginOptions<AppRouter>['trpcOptions']

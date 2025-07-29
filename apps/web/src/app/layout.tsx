@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import LayoutFooter from '@/components/layout/layout-footer'
 import LayoutHeader from '@/components/layout/layout-header'
-import { ThemeProvider } from '@/components/theme/theme-provider'
+import ThemeProvider from '@/context/ThemeProvider.tsx'
+import QueryProvider from '@/context/QueryProvider.tsx'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -30,21 +31,18 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<LayoutHeader />
+				<ThemeProvider>
+					<QueryProvider>
+						<LayoutHeader />
 
-					<main className="bg-background flex-1">
-						<div className="containe-xl mx-auto px-4 py-8">
-							<div className="mx-auto max-w-4xl">{children}</div>
-						</div>
-					</main>
+						<main className="bg-background flex-1">
+							<div className="containe-xl mx-auto px-4 py-8">
+								<div className="mx-auto max-w-4xl">{children}</div>
+							</div>
+						</main>
 
-					<LayoutFooter />
+						<LayoutFooter />
+					</QueryProvider>
 				</ThemeProvider>
 			</body>
 		</html>

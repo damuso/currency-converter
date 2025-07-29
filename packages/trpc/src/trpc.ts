@@ -1,9 +1,8 @@
 import { initTRPC } from '@trpc/server'
 import SuperJson from 'superjson'
 import { Context } from './context'
-import { OpenApiMeta } from 'trpc-to-openapi'
 
-export const t = initTRPC.context<Context>().meta<OpenApiMeta>().create({
+export const t = initTRPC.context<Context>().create({
 	transformer: SuperJson
 })
 

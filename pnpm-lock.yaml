@@ -69,6 +69,9 @@ importers:
       '@currency_converter/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@currency_converter/trpc':
+        specifier: workspace:*
+        version: link:../../packages/trpc
       '@hookform/resolvers':
         specifier: ^5.2.0
         version: 5.2.0(react-hook-form@7.61.1)
@@ -93,6 +96,15 @@ importers:
       '@tabler/icons-react':
         specifier: ^3.34.1
         version: 3.34.1(react@19.1.0)
+      '@tanstack/react-query':
+        specifier: ^5.83.0
+        version: 5.83.0(react@19.1.0)
+      '@trpc/client':
+        specifier: ^11.4.3
+        version: 11.4.3(@trpc/server@11.4.3)(typescript@5.8.3)
+      '@trpc/tanstack-react-query':
+        specifier: ^11.4.3
+        version: 11.4.3(@tanstack/react-query@5.83.0)(@trpc/client@11.4.3)(@trpc/server@11.4.3)(react-dom@19.1.0)(react@19.1.0)(typescript@5.8.3)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -120,6 +132,12 @@ importers:
       react-hook-form:
         specifier: ^7.61.1
         version: 7.61.1(react@19.1.0)
+      react-number-format:
+        specifier: ^5.4.4
+        version: 5.4.4(react-dom@19.1.0)(react@19.1.0)
+      superjson:
+        specifier: ^2.2.2
+        version: 2.2.2
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -2286,11 +2304,52 @@ packages:
       tailwindcss: 4.1.11
     dev: true
 
+  /@tanstack/query-core@5.83.0:
+    resolution: {integrity: sha512-0M8dA+amXUkyz5cVUm/B+zSk3xkQAcuXuz5/Q/LveT4ots2rBpPTZOzd7yJa2Utsf8D2Upl5KyjhHRY+9lB/XA==}
+    dev: false
+
+  /@tanstack/react-query@5.83.0(react@19.1.0):
+    resolution: {integrity: sha512-/XGYhZ3foc5H0VM2jLSD/NyBRIOK4q9kfeml4+0x2DlL6xVuAcVEW+hTlTapAmejObg0i3eNqhkr2dT+eciwoQ==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.83.0
+      react: 19.1.0
+    dev: false
+
+  /@trpc/client@11.4.3(@trpc/server@11.4.3)(typescript@5.8.3):
+    resolution: {integrity: sha512-i2suttUCfColktXT8bqex5kHW5jpT15nwUh0hGSDiW1keN621kSUQKcLJ095blqQAUgB+lsmgSqSMmB4L9shQQ==}
+    peerDependencies:
+      '@trpc/server': 11.4.3
+      typescript: '>=5.7.2'
+    dependencies:
+      '@trpc/server': 11.4.3(typescript@5.8.3)
+      typescript: 5.8.3
+    dev: false
+
   /@trpc/server@11.4.3(typescript@5.8.3):
     resolution: {integrity: sha512-wnWq3wiLlMOlYkaIZz+qbuYA5udPTLS4GVVRyFkr6aT83xpdCHyVtURT+u4hSoIrOXQM9OPCNXSXsAujWZDdaw==}
     peerDependencies:
       typescript: '>=5.7.2'
     dependencies:
+      typescript: 5.8.3
+    dev: false
+
+  /@trpc/tanstack-react-query@11.4.3(@tanstack/react-query@5.83.0)(@trpc/client@11.4.3)(@trpc/server@11.4.3)(react-dom@19.1.0)(react@19.1.0)(typescript@5.8.3):
+    resolution: {integrity: sha512-aYPp12wE9IrakccGWoQU/waZuWr3FLw9RtagsqJmX9NKHpQOVzoDvHA1W0amwyTQSAfL98Bn5rWmD7KTdr5AWg==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.80.3
+      '@trpc/client': 11.4.3
+      '@trpc/server': 11.4.3
+      react: '>=18.2.0'
+      react-dom: '>=18.2.0'
+      typescript: '>=5.7.2'
+    dependencies:
+      '@tanstack/react-query': 5.83.0(react@19.1.0)
+      '@trpc/client': 11.4.3(@trpc/server@11.4.3)(typescript@5.8.3)
+      '@trpc/server': 11.4.3(typescript@5.8.3)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
       typescript: 5.8.3
     dev: false
 
@@ -5587,6 +5646,16 @@ packages:
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
+
+  /react-number-format@5.4.4(react-dom@19.1.0)(react@19.1.0):
+    resolution: {integrity: sha512-wOmoNZoOpvMminhifQYiYSTCLUDOiUbBunrMrMjA+dV52sY+vck1S4UhR6PkgnoCquvvMSeJjErXZ4qSaWCliA==}
+    peerDependencies:
+      react: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+    dev: false
 
   /react-remove-scroll-bar@2.3.8(@types/react@19.0.0)(react@19.1.0):
     resolution: {integrity: sha512-9r+yi9+mgU33AKcj6IbT9oRCO78WriSj6t/cF8DWBZJ9aOGPOTEDvdUDz1FwKim7QXWwmHqtdHnRJfhAxEG46Q==}
